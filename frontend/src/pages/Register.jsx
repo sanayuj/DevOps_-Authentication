@@ -1,6 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { userSignup } from "../Services/userApi";
+import { use } from "react";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -28,7 +30,15 @@ export default function Register() {
   // onSubmit
   const onSubmit = (values) => {
     console.log("Register Values:", values);
-    navigate("/"); // redirect to login
+    userSignup(values).then((res) => {
+      console.log(res.data);
+      navigate("/"); // redirect to login
+    }
+    ).catch((err)=>{
+      console.log(err);
+    }
+    
+    );
   };
 
   const formik = useFormik({
