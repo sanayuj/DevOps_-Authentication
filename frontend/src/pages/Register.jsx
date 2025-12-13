@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
+import { Toaster, toast } from 'sonner';
 import * as Yup from "yup";
 import { userSignup } from "../Services/userApi";
 import { use } from "react";
@@ -32,7 +33,13 @@ export default function Register() {
     console.log("Register Values:", values);
     userSignup(values).then((res) => {
       console.log(res.data);
-      navigate("/"); // redirect to login
+      if(res.data.status){
+        toast.success("Registered Successfully");
+        navigate("/");
+      }else{
+        toast.error(res.data.message);
+        return;
+      }
     }
     ).catch((err)=>{
       console.log(err);
