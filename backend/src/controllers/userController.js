@@ -17,8 +17,8 @@ const createToken = (id) => {
     const { name, email, password, confirmpassword } = req.body;
   
     try {
-    
-  
+      console.log("Inside try !!!!");
+      
       const emailExists = await userModel.findOne({ email: email });
   
       if (emailExists) {
